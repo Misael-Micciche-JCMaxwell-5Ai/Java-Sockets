@@ -183,6 +183,8 @@ class SocketWorker implements Runnable {
                     group = line;
                     isGroup = true;
                     ServerTestoMultiThreaded.listaGroup.add(group);
+                    out.println("Gruppo creato con successo!");
+                    System.out.println(nick + " ha creato il gruppo "+group);
                 } else {
                     //ALTRIMENTI STAMPA SUL CLIENT
                     out.println("Gruppo gia' esistente, inseriscine un altro");
@@ -215,6 +217,7 @@ class SocketWorker implements Runnable {
         {
             group = line;
             out.println("Benvenuto nel gruppo!");
+            System.out.println(nick + " si e' unito al gruppo "+group);
         } else {
             out.println("Il gruppo non esiste, prova a crearlo usando il comando <<New>>");
             out.println("I gruppi esistenti sono i seguenti: ");
@@ -223,8 +226,8 @@ class SocketWorker implements Runnable {
   
     public void writeOnClient(String line)
     {
-        out.println(group + ">>" + nick + ">>"+line);
-        System.out.println(group + ">>" + nick+ ">>" + line);
+        out.println(line);
+        System.out.println(line);
     }
     
     public String getGroup()
