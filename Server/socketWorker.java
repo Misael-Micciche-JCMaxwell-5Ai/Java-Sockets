@@ -106,7 +106,7 @@ class SocketWorker implements Runnable {
                             {
                                 if(ServerTestoMultiThreaded.listaSocket.get(i).getGroup().equals(group))
                                 {
-                                    ServerTestoMultiThreaded.listaSocket.get(i).writeOnClient(line);
+                                    ServerTestoMultiThreaded.listaSocket.get(i).writeOnClient(line, ServerTestoMultiThreaded.listaSocket.get(i).getNick());
                                 }
                             }
                         }
@@ -224,7 +224,7 @@ class SocketWorker implements Runnable {
         }
     }
   
-    public void writeOnClient(String line)
+    public void writeOnClient(String line, String nick)
     {
         out.println(line);
         System.out.println(line);
