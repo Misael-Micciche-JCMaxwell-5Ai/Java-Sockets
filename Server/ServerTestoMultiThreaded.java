@@ -6,7 +6,9 @@
 
 /**
  *
- * @author Prof. Matteo Palitto
+ * @author De Santis Veronica
+ * @author Checchia Mirko
+ * @author Miccichè Misael
  */
 import java.net.*;
 import java.io.*;
