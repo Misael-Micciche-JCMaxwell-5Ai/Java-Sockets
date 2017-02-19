@@ -6,9 +6,9 @@
 
 /**
  *
- * @author Prof. Matteo Palitto
- * @author Misael Miccichè
  * @author De Santis Veronica
+ * @author Checchia Mirko
+ * @author Miccichè Misael
  */
 import java.net.*;
 import java.io.*;
@@ -41,9 +41,6 @@ public class ClientTesto {
 			
             // creazione socket 
             Socket clientSocket = new Socket(address, portNumber);
-		
-            // visualizza istruzioni
-            System.out.println("Client-Testo: usa EXIT per terminare, ENTER per spedire la linea di testo.\n");
 			
             // connessione concorrente al socket per ricevere i dati da Server
             listener l;
@@ -61,13 +58,12 @@ public class ClientTesto {
             String userInput;
             // IL PRIMO STREAM E' RAPPRESENTATO DAL NICKNAME
             out.println(nick);
+            System.out.println("Lista dei comandi");
+            out.println("Help");
             //leggi da linea di comando il testo da spedire al Server
-            System.out.print(">"); //visualizza il prompt
             while ((userInput = stdIn.readLine()) != null) {
             	// scrittura del messaggio da spedire nel socket 
 		out.println(userInput);
-                System.out.println("Messaggio spedito al server: " + userInput);
-                System.out.print(">"); //visualizza il prompt
             }
             // chiusura socket
             clientSocket.close();
