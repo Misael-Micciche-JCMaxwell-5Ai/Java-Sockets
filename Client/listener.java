@@ -5,20 +5,20 @@
  */
 import java.net.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author Prof. Matteo Palitto
+ * @author De Santis Veronica
+ * @author Checchia Mirko
+ * @author Miccichè Misael
  */
+
 class listener implements Runnable {
   private Socket client;
 
     //Constructor
     listener(Socket client) {
         this.client = client;
-        System.out.println("In ascolto con: " + client);
     }
 
     public void run(){
