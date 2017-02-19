@@ -56,13 +56,13 @@ Visualizzare elenco utenti connessi da Client:
 ```
 <Nickname>
 ```
-Creare un nuovo gruppo
+Creare un nuovo gruppo:
 ```
 <New>
 ```
 Unirsi ad un gruppo già esistente
 ```
-<Join>
+<Join>        
 ```
 Visualizzare elenco gruppi creati
 ```
@@ -70,7 +70,11 @@ Visualizzare elenco gruppi creati
 ```
 Visualizzare l'elenco dei comandi disponibili
 ```
-<Command>
+<Help>
+```
+Abbandonare il gruppo
+```
+<Quit>
 ```
 Scollegare il client:
 ```
