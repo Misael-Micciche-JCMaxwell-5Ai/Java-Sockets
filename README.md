@@ -54,7 +54,7 @@ dove:
 
 Visualizzare elenco utenti connessi da Client:
 ```
-<Nickname>
+<User>
 ```
 Creare un nuovo gruppo:
 ```
