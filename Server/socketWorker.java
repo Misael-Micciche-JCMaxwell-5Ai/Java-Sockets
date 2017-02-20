@@ -81,10 +81,15 @@ class SocketWorker implements Runnable {
                     joinGroup();
                 }
                 break;
-                case "Invite":
+                 case "Invite":
                 {
-                    // Creare un metodo a parte
+                    if(group.equals(""))
+                        out.println("Comando non disponibile");
+                    else {
+                        invite();
+                    }
                 }
+                break;
                 case "Groups":
                 {
                     if(ServerTestoMultiThreaded.listaGroup.isEmpty())
@@ -100,10 +105,36 @@ class SocketWorker implements Runnable {
                 break;
                 case "Quit":
                 {
-                    System.out.println(nick + " e' uscito dal gruppo "+group);
-                    out.println("Sei uscito dal gruppo");
-                    notifyOther(nick + " e' uscito dal gruppo");
-                    group = "";
+                    if(group.equals(""))
+                        out.println("Comando non disponibile");
+                    else{
+                        System.out.println(nick + " e' uscito dal gruppo "+group);
+                        out.println("Sei uscito dal gruppo");
+                        notifyOther(nick + " e' uscito dal gruppo");
+                        int cont = 0;
+                        for(int i = 0; i < ServerTestoMultiThreaded.listaSocket.size(); i ++)
+                        {
+                            if(ServerTestoMultiThreaded.listaSocket.get(i).getGroup().equals(group))
+                            {
+                                cont++;
+                            }
+                        }
+                        if((cont - 1) == 0){
+                            ServerTestoMultiThreaded.listaGroup.remove(group);
+                        }
+                        group = "";
+                    }
+                }
+                break;
+                case "Delete":
+                {
+                    if(group.equals(""))
+                        out.println("Non ti sei aggiunto ad un gruppo");
+                    else {
+                        System.out.println(nick + " ha eliminato il gruppo " + group);
+                        out.println("Hai eliminato il gruppo");
+                        delete();
+                    }
                 }
                 break;
                 case "Exit":
@@ -123,8 +154,11 @@ class SocketWorker implements Runnable {
                     out.println("User >> Stampa la lista dei nickname nel client");
                     out.println("New >> Crea un nuovo gruppo");
                     out.println("Join >> Collegamento a un gruppo gia' esistente");
+                    out.println("Invite >> Aggiunge ad un gruppo gia' esistente un client");
+                    out.println("Delete >> Elimina il gruppo");
                     out.println("Groups >> Stampa la lista dei gruppi");
                     out.println("Help >> Mostra la lista dei comandi utilizzabili");
+                    out.println("Quit >> Esce dal gruppo");
                     out.println("Exit >> Uscita");
                 }
                 break;
@@ -235,6 +269,53 @@ class SocketWorker implements Runnable {
             } catch(IOException e) { System.out.println("Lettura da socket fallito");
                                  System.exit(-1); }
         }
+    }
+  
+  private void invite()
+    {
+        String line = "";
+        boolean isCorrect = false;
+        while(!isCorrect)
+        {
+            out.println("Inserisci il nome dell'utente che vuoi invitare");
+            try{
+                line = in.readLine();
+            } catch(IOException e) { System.out.println("I|O Error");
+                                     System.exit(-1);}
+            boolean trov = false;
+            int i = 0;
+            while(i < ServerTestoMultiThreaded.listaSocket.size() && trov == false)
+            {
+                if(ServerTestoMultiThreaded.listaSocket.get(i).getNick().equals(line)){
+                    trov = true;
+                    out.println("Richiesta inviata a " + ServerTestoMultiThreaded.listaSocket.get(i).getNick());
+                    ServerTestoMultiThreaded.listaSocket.get(i).write(nick + " ti ha aggiunto " + group);
+                    ServerTestoMultiThreaded.listaSocket.get(i).setGroup(group);
+                    System.out.println(nick + " ha aggiunto "+ ServerTestoMultiThreaded.listaSocket.get(i).getNick() + " al gruppo " + group);
+                }
+                else
+                    i++;
+            }
+            if(trov)
+            {
+                isCorrect = true;
+            } else {
+                out.println("Utente non trovato!");
+            }
+        }
+    }
+  
+  private void delete()
+    {
+        String group = this.group;
+        this.group = "";
+        for(int i = 0; i < ServerTestoMultiThreaded.listaSocket.size(); i ++){
+            if(ServerTestoMultiThreaded.listaSocket.get(i).getGroup().equals(group)){
+                ServerTestoMultiThreaded.listaSocket.get(i).write(nick + " ha eliminato il gruppo " + group);
+                ServerTestoMultiThreaded.listaSocket.get(i).setGroup("");
+            }
+        }
+        ServerTestoMultiThreaded.listaGroup.remove(group);
     }
     
     public void notifyOther(String whatToWrite){
