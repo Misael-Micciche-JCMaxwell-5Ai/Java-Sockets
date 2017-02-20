@@ -70,7 +70,7 @@ Visualizzare elenco gruppi creati
 ```
 Invitare un client
 ```
-<Quit>
+<Invite>
 ```
 Abbandonare il gruppo
 ```
