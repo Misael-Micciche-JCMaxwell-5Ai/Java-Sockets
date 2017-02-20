@@ -60,9 +60,9 @@ class SocketWorker implements Runnable {
             line = in.readLine();
             switch(line){
                 // Stampa la lista di tutti i client presenti
-                case "Nickname":
+                case "User":
                 {
-                    System.out.println(nick + "ha richiesto la lista dei client");
+                    System.out.println(nick + " ha richiesto la lista dei client");
                     for(int i = 0; i < ServerTestoMultiThreaded.listaClient.size(); i ++)
                     {
                         out.println("Client "+ (i+1) + "=>" + ServerTestoMultiThreaded.listaClient.get(i));
@@ -77,21 +77,33 @@ class SocketWorker implements Runnable {
                 break;
                 case "Join":
                 {
-                    System.out.println(nick + "si sta unendo ad un gruppo");
+                    System.out.println(nick + " si sta unendo ad un gruppo");
                     joinGroup();
                 }
                 break;
+                case "Invite":
+                {
+                    // Creare un metodo a parte
+                }
                 case "Groups":
                 {
                     if(ServerTestoMultiThreaded.listaGroup.isEmpty())
                         out.println("Non sono ancora stati creati gruppi");
                     else{
-                        System.out.println(nick + "ha richiesto la lista dei gruppi");
+                        System.out.println(nick + " ha richiesto la lista dei gruppi");
                         for(int i = 0; i < ServerTestoMultiThreaded.listaGroup.size(); i ++)
                         {
                             out.println("Gruppo "+ (i+1) + "=>" + ServerTestoMultiThreaded.listaGroup.get(i));
                         }
                     }
+                }
+                break;
+                case "Quit":
+                {
+                    System.out.println(nick + " e' uscito dal gruppo "+group);
+                    out.println("Sei uscito dal gruppo");
+                    notifyOther(nick + " e' uscito dal gruppo");
+                    group = "";
                 }
                 break;
                 case "Exit":
@@ -108,7 +120,7 @@ class SocketWorker implements Runnable {
                 case "Help":
                 {
                     System.out.println(nick + " ha rischiesto la lista di comandi");
-                    out.println("Nickname >> Stampa la lista dei nickname nel client");
+                    out.println("User >> Stampa la lista dei nickname nel client");
                     out.println("New >> Crea un nuovo gruppo");
                     out.println("Join >> Collegamento a un gruppo gia' esistente");
                     out.println("Groups >> Stampa la lista dei gruppi");
