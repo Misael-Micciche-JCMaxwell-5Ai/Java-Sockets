@@ -2,7 +2,7 @@
 # Java-Sockets
 Concetti e realizzazione di una semplice connessione Client/Server usando Sockets in Java
 ```
-Obitettivo del progetto:
+Obiettivo del progetto:
 inviare linee di testo da un programma (Client)... --> ad un altro (Server) anche eventualmente remoto.
 ```
 
@@ -68,13 +68,17 @@ Visualizzare elenco gruppi creati
 ```
 <Groups>
 ```
-Visualizzare l'elenco dei comandi disponibili
+Invitare un client
 ```
-<Help>
+<Quit>
 ```
 Abbandonare il gruppo
 ```
 <Quit>
+```
+Visualizzare l'elenco dei comandi disponibili
+```
+<Help>
 ```
 Scollegare il client:
 ```
