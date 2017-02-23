@@ -85,6 +85,10 @@ Scollegare il client:
 <Exit>
 ```
 
+### Scorciatoie
+
+Se sbagli ad inserire un comando, come "New", "Invite" o "Join", quando ti viene richiesto un inserimento, premi solo invio, lasciando la riga vuota, l'azione verrà automaticamente interrotta, e tu potrai continuare ad usare la group chat senza problemi
+
 ### Esempio usando stesso computer sia per eseguire Server che multipli Clients
 Da finestra di comando Server esguire il Server:
 ```
@@ -112,6 +116,3 @@ Questa e' la lista delle funzionalità del progetto:
  
 ## Licenza
 OpenSource
-
-## Ringraziamenti
-Al professor Matteo Palitto
