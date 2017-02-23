@@ -152,14 +152,14 @@ class SocketWorker implements Runnable {
                     try {
                         out.println("Bye.");
                         client.close();
-                        System.out.println("connessione con client: " + nick + " terminata!");
+                        System.out.println("Connessione con client: " + nick + " terminata!");
                         return;
                     } catch (IOException e) { System.out.println("Errore connessione con client: " + nick); }
                 }
                 break;
                 case "Help":
                 {
-                    System.out.println(nick + " ha rischiesto la lista di comandi");
+                    System.out.println(nick + " ha richiesto la lista di comandi");
                     out.println("User >> Stampa la lista dei nickname nel client");
                     out.println("New >> Crea un nuovo gruppo");
                     out.println("Join >> Collegamento a un gruppo gia' esistente");
