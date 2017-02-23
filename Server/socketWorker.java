@@ -82,8 +82,12 @@ class SocketWorker implements Runnable {
                 break;
                 case "Join":
                 {
-                    System.out.println(nick + " si sta unendo ad un gruppo");
-                    joinGroup();
+                    if(!group.equals(""))
+                       out.println("Comando non disponibile");
+                    else {
+                        System.out.println(nick + " si sta unendo ad un gruppo");
+                        joinGroup();
+                    }
                 }
                 break;
                  case "Invite":
@@ -221,26 +225,32 @@ class SocketWorker implements Runnable {
             out.println("Inserisci il nome del gruppo:");
             try{
                 line = in.readLine();
-                boolean trov = false;
-                int i = 0;
-                while(trov==false && i < ServerTestoMultiThreaded.listaGroup.size())
-                {
-                    if(ServerTestoMultiThreaded.listaGroup.get(i).equals(line))
-                        trov = true;
-                    else
-                        i++;
-                }
-                if(!trov)
-                {
-                    group = line;
-                    isGroup = true;
-                    ServerTestoMultiThreaded.listaGroup.add(group);
-                    out.println("Gruppo creato con successo!");
-                    System.out.println(nick + " ha creato il gruppo "+group);
-                } else
-                    out.println("Gruppo gia' esistente, inseriscine un altro");         
-            } catch(IOException e) { System.out.println("Lettura da socket fallito");
-                                 System.exit(-1); }
+            } catch(IOException e) { System.out.println("I|O Error");
+                                     System.exit(-1); }
+            if(line.equals(""))
+            {
+                out.println("Azione interrotta");
+                System.out.println("Azione interrotta da " + nick);
+                return;
+            }
+            boolean trov = false;
+            int i = 0;
+            while(trov==false && i < ServerTestoMultiThreaded.listaGroup.size())
+            {
+                if(ServerTestoMultiThreaded.listaGroup.get(i).equals(line))
+                    trov = true;
+                else
+                    i++;
+            }
+            if(!trov)
+            {
+                group = line;
+                isGroup = true;
+                ServerTestoMultiThreaded.listaGroup.add(group);
+                out.println("Gruppo creato con successo!");
+                System.out.println(nick + " ha creato il gruppo "+group);
+            } else
+                out.println("Gruppo gia' esistente, inseriscine un altro");
         }
         
     }
@@ -253,26 +263,32 @@ class SocketWorker implements Runnable {
             out.println("Inserisci il nome del gruppo");
             try{
                 line = in.readLine();
-                boolean trov = false;
-                int i = 0;
-                while(trov == false && i < ServerTestoMultiThreaded.listaGroup.size())
-                {
-                    if(ServerTestoMultiThreaded.listaGroup.get(i).equals(line))
-                        trov = true;
-                    else
-                        i++;
-                }
-                if(trov)
-                {
-                    group = line;
-                    isJoin = true;
-                    out.println("Ti sei unito al gruppo con successo!");
-                    System.out.println(nick + " si e' aggiunto al gruppo " + group);
-                    notifyOther(nick + " si e' aggiunto al gruppo");
-                } else
-                    out.println("Il gruppo non e' stato trovato");
-            } catch(IOException e) { System.out.println("Lettura da socket fallito");
-                                 System.exit(-1); }
+            } catch(IOException e){ System.out.println("I|O Error");
+                                    System.exit(-1); }
+            if(line.equals(""))
+            {
+                out.println("Azione interrotta");
+                System.out.println("Azione interrotta da " + nick);
+                return;
+            }
+            boolean trov = false;
+            int i = 0;
+            while(trov == false && i < ServerTestoMultiThreaded.listaGroup.size())
+            {
+                if(ServerTestoMultiThreaded.listaGroup.get(i).equals(line))
+                    trov = true;
+                else
+                    i++;
+            }
+            if(trov)
+            {
+                group = line;
+                isJoin = true;
+                out.println("Ti sei unito al gruppo con successo!");
+                System.out.println(nick + " si e' aggiunto al gruppo " + group);
+                notifyOther(nick + " si e' aggiunto al gruppo");
+            } else
+                out.println("Il gruppo non e' stato trovato");
         }
     }
   
@@ -287,6 +303,12 @@ class SocketWorker implements Runnable {
                 line = in.readLine();
             } catch(IOException e) { System.out.println("I|O Error");
                                      System.exit(-1);}
+            if(line.equals(""))
+            {
+                out.println("Azione interrotta");
+                System.out.println("Azione interrotta da " + nick);
+                return;
+            }
             boolean trov = false;
             int i = 0;
             while(i < ServerTestoMultiThreaded.listaSocket.size() && trov == false)
