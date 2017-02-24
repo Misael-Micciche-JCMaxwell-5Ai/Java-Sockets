@@ -85,6 +85,11 @@ Scollegare il client:
 <Exit>
 ```
 
+Eliminare il gruppo:
+```
+<Delete>
+```
+
 ### Scorciatoie
 
 Se sbagli ad inserire un comando, come "New", "Invite" o "Join", quando ti viene richiesto un inserimento, premi solo invio, lasciando la riga vuota, l'azione verrà automaticamente interrotta, e tu potrai continuare ad usare la group chat senza problemi
